@@ -144,11 +144,11 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
     else:
         return zipped_list
 
-
+# profile example
 profile = {
     "input_data": "password111",
     "salt": "salt%4321!",
-    "hash_char_len": 512,
+    "hash_char_len": 256,
     "infolds": 100,
     "character_mask": False,
     "enforce_phrasing": False,
