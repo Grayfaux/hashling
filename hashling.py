@@ -1,7 +1,7 @@
 import time as t
 
 
-def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_len: int = 51, infolds: int = 10,
+def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_len: int = 64, infolds: int = 10,
              character_mask: bool = False, enforce_phrasing: bool = False, enforce_max_char_repeat: bool = False, hash_profile: dict = None):
 
     if hash_profile is None:
@@ -37,7 +37,7 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
             raise Exception("enforce_max_char_repeat must be passed in as an bool")
 
     if len(input_data) < 10:
-        raise Exception("input_data must have a minimum length of 8")
+        raise Exception("input_data must have a minimum length of 10")
 
     if hash_char_len < 64:
         raise Exception("hash_char_len must be 64 or greater")
@@ -148,9 +148,21 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
 profile = {
     "input_data": "password111",
     "salt": "salt%4321!",
-    "hash_char_len": 256,
-    "infolds": 100,
+    "hash_char_len": 64,
+    "infolds": 1000,
     "character_mask": False,
     "enforce_phrasing": False,
     "enforce_max_char_repeat": True
 }
+
+
+time_start = t.time()
+# x = hashling("this is a passwords", hash_char_len=128, salt="short", character_mask=False, infolds=10, enforce_phrasing=True)
+z = hashling(hash_profile=profile)
+time_end = t.time()
+run_time = time_end-time_start
+print(f"hash chars:{len(z)}")
+print(f"hash bits:{len(z) * 8}")
+print(z)
+print(f"run time:{run_time}")
+
