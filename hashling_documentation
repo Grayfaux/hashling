@@ -7,7 +7,7 @@ Description: Hashling is a dynamic python hashing algorithm. Allows unique hashi
 
 
 
-The goal of hashling is to create a dynamic hash structure the allows the user to create
+The goal of hashling is to create a dynamic hash structure that allows the user to create
 unique hash profiles and use those profiles to create a deterministic and repeatable hash based on those profiles.
 Hashling allows the implementor to pass in parameters either strait into the function call or as a dictionary.
 
