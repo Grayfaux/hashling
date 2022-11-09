@@ -80,11 +80,11 @@ Based on the utf-8 per character bit size of 8, a hash_char_len of 64 returns a 
 
 4: Infolds refer to the number of additional times the input is split and alternated in on it's self
 
-        if infolds < 10:  
+        if infolds < 6:
 
 
-    Minimum of 10 infolds is enforced
-                raise Exception("infolds must be 10 or greater")  
+    Maximum of 6 infolds is enforced
+                raise Exception("infolds must be between 0 and 6")
 
 
 5: Inputs as a phrase
@@ -201,7 +201,7 @@ Based on the utf-8 per character bit size of 8, a hash_char_len of 64 returns a 
     -The new string is split in half and reduced until they are half character length then zipped again
         
 
-            def in_fold(data: str):
+            def infold(data: str):
                 seg_length = len(data)
                 front_half = data[:seg_length//2]
                 back_half = data[seg_length//2:]
@@ -226,18 +226,18 @@ Based on the utf-8 per character bit size of 8, a hash_char_len of 64 returns a 
 13: Infold iteration
 
 
-    -Infolding can be repeated 10s of thousands of times with minimal overhead, up to 500,000 time in less than a second
+    -Infolding can be repeated between 0 and 6 times
         
 
             for i in range(infolds):
-                zipped_list = in_fold(zipped_list)
+                zipped_list = infold(zipped_list)
 
 
 
 14: Character masking
 
 
-    -I character masking is set to true spacific integers are replaced with arbitrary character
+    -I character masking is set to true specific integers are replaced with arbitrary character
         
 
             symbols = ["q", "w", "e", "r", "t", "y", "$", "#", "@", "!"]
