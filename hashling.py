@@ -1,4 +1,5 @@
-import time as t
+import random
+import string
 
 
 def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_len: int = 64, infolds: int = 10,
@@ -41,8 +42,9 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
 
     if hash_char_len < 64:
         raise Exception("hash_char_len must be 64 or greater")
-    if infolds < 10:
-        raise Exception("infolds must be 10 or greater")
+
+    if infolds > 6:
+        raise Exception("infolds must be 0 and 6")
 
     if enforce_phrasing:
         spaces = 0
@@ -100,7 +102,7 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
 
     seg_zip = "".join(seg_zip)
 
-    def in_fold(data: str):
+    def infold(data: str):
         seg_length = len(data)
         front_half = data[:seg_length//2]
         back_half = data[seg_length//2:]
@@ -118,10 +120,10 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
 
         return "".join(zipped_list)
 
-    zipped_list = in_fold(seg_zip)
+    zipped_list = infold(seg_zip)
 
     for i in range(infolds):
-        zipped_list = in_fold(zipped_list)
+        zipped_list = infold(zipped_list)
 
     length_of_zipped = len(zipped_list)
     symbols = ["q", "w", "e", "r", "t", "y", "$", "#", "@", "!"]
@@ -143,3 +145,38 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
         return "".join(altered_list)
     else:
         return zipped_list
+
+
+# combines two strings into one in alternating order
+def zip_list(list1: list, list2: list):
+    zipped_list = []
+    for x in range(len(list1)):
+        zipped_list.append(list1[x])
+        zipped_list.append(list2[x])
+
+    return "".join(zipped_list)
+
+
+# generates a random salt string of a given length
+def generate_salt(length: int):
+    characters = string.ascii_letters + string.digits + string.punctuation
+    salt = ""
+    for i in range(length):
+        salt += random.choice(characters + " ")
+    return salt
+
+
+# profile example
+
+# profile = {
+#     "input_data": "password111",
+#     "salt": "salt%4321!",
+#     "hash_char_len": 64,
+#     "infolds": 4,
+#     "character_mask": False,
+#     "enforce_phrasing": False,
+#     "enforce_max_char_repeat": True
+# }
+
+
+
