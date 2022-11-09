@@ -147,7 +147,7 @@ def hashling(input_data: str = "test_data", salt: str = "salt%here*", hash_char_
         return zipped_list
 
 
-# combines two strings into one in alternating order
+# combines two lists into one string in alternating order
 def zip_list(list1: list, list2: list):
     zipped_list = []
     for x in range(len(list1)):
